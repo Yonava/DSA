@@ -3,7 +3,7 @@
 
 using namespace std;
 
-#define LOG(item) cout << item << endl << endl;
+#define LOG(item) cout << item << endl;
 
 struct Student {
   string name = "Unoccupied";
@@ -30,12 +30,8 @@ class StudentIDArray {
 
     void display() {
       for (int i = 0; i < SIZE_OF_ARRAY; i++) {
-        if (students[i].name == "Unoccupied") {
-          cout << "Index " << i << " Is Unassigned." << endl;
-        }
-        else {
-          cout << students[i].name << " - " << students[i].id << endl;
-        }
+        string assignment = students[i].name == "Unoccupied" ? " Is Unassigned." : " Is Assigned To " + students[i].name + " - " + to_string(students[i].id);
+        cout << "Index " << i << assignment << endl;
       }
     }
 
@@ -64,20 +60,21 @@ class StudentIDArray {
     }
 
     // returns student for given index
-    Student getStudentByIndex(int n) {
-      return students[n];
+    string getStudentByIndex(int n) {
+      if (n >= indexTracker) return "Index " + to_string(n) + " Is Out of Range"; 
+      return students[n].name + " - " + to_string(students[n].id);
     }
 
-    string insertItemPos(Student student, int pos) {
-      if (pos >= SIZE_OF_ARRAY) return "Inputted position of " + to_string(pos) +  " out of range";
+    string overrideItemPos(Student student, int pos) {
+      if (pos >= indexTracker) return "Inputted position of " + to_string(pos) +  " out of range";
       students[pos] = student;
       return "Success!";
     }
 
     // returns index when given a studentID, returns -1 if no studentID matches
-    int getIndexOfID(Student studentID) {
+    int getIndexOfID(int studentId) {
       for (int i = 0; i < SIZE_OF_ARRAY; i++) {
-        if (studentID.id == students[i].id) {
+        if (studentId == students[i].id) {
           return i;
         }
       }
@@ -92,8 +89,9 @@ int options() {
   cout << "1 - Pop Item" << endl;
   cout << "2 - Override Item" << endl;
   cout << "3 - Get Item By Index" << endl;
-  cout << "4 - Get Item By Student ID" << endl;
-  cout << "5 - Exit Program" << endl;
+  cout << "4 - Get Index Of Student By Student ID" << endl;
+  cout << "5 - Display Contents of Array" << endl;
+  cout << "6 - Exit Program" << endl;
   cin >> choice;
 
   return choice;
@@ -106,8 +104,10 @@ int main() {
   
   int selectedOption;
   bool running = true;
+
   string name;
   int id;
+  int pos;
 
   while (running) {
     selectedOption = options();
@@ -120,13 +120,32 @@ int main() {
         cout << x.push(s) << endl;
         break;
       case 1:
+        cout << x.pop() << endl;
+        break;
+      case 2:
+        cout << "Enter Student ID: ";
+        cin >> s.id;
+        cout << "Student Name: ";
+        cin >> s.name;
+        cout << "Which Index? " << x.lengthOfStudentList() << " Indices Available: ";
+        cin >> pos;
+        cout << x.overrideItemPos(s, pos) << endl;
+        break;
+      case 3:
+        cout << "Enter Index: ";
+        cin >> pos;
+        cout << x.getStudentByIndex(pos) << endl;
+        break;
+      case 4:
+        cout << "Enter A Student ID: ";
+        cin >> id;
+        cout << x.getIndexOfID(id) << endl;
+        break;
+      case 5:
         cout << "Here it is: " << endl;
         x.display();
         break;
-      case 2:
-      case 3:
-      case 4:
-      case 5:
+      case 6:
         running = false;
         break;
       default:
@@ -134,9 +153,6 @@ int main() {
         break;
     }
   }
-
-
-
 
   return 0;
 }
