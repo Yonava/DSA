@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 struct Student {
   string name = "Unoccupied";
   int id = 0;

@@ -1,5 +1,20 @@
 {
   "files.associations": {
     "iosfwd": "cpp"
-  }
+  },
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "trial",
+      "database": "planet",
+      "username": "root",
+      "password": "y0na2001"
+    }
+  ]
 }
