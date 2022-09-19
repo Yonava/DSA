@@ -51,6 +51,15 @@ void StudentIDArray::resetArray() {
   	indexTracker = 0;
 }
 
+string StudentIDArray::swap(int pos1, int pos2) {
+	if (pos1 >= indexTracker || pos2 >= indexTracker) return "Position Out of Range";
+	else if (pos1 < 0 || pos2 < 0) return "Positions Cannot Be Negative";
+	Student temp = students[pos1];
+	students[pos1] = students[pos2];
+	students[pos2] = temp;
+	return "Items Successfully Swapped";
+}
+
 string StudentIDArray::getStudentByIndex(int n) {
   	if (n >= indexTracker) return "Index " + to_string(n) + " Is Out of Range"; 
   	return students[n].name + " - " + to_string(students[n].id);

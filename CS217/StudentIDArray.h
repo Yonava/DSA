@@ -26,7 +26,7 @@ class StudentIDArray {
 		// prints out the contents of array
 		void display();
 
-		// adds studentID to the end of array
+		// takes a student and returns a string to indicate success or failure
 		string push(Student student);
 
 		// inserts item into array at specified position
@@ -38,11 +38,14 @@ class StudentIDArray {
 		// returns the number of occupied indices in array
 		int lengthOfStudentList();
 
-		// removes studentID on the end LIFO
+		// removes last student in array
 		string pop();
 
 		// calls when StudentIDArray is instantiated, or when array needs to be cleared
 		void resetArray();
+
+		// takes 2 indices and swaps the students stored at those respective indices
+		string swap(int pos1, int pos2);
 
 		// returns student for given index
 		string getStudentByIndex(int n);

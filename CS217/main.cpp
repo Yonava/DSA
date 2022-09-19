@@ -14,10 +14,23 @@ int options() {
   	cout << "6 - Get Index Of Student By Student ID" << endl;
   	cout << "7 - Display Contents of Array" << endl;
 	cout << "8 - Display Length of Array" << endl;
-  	cout << "9 - Exit Program" << endl;
+	cout << "9 - Swap Two Students Position" << endl;
+	cout << "10 - Reset Array" << endl;
+  	cout << "11 - Exit Program" << endl;
   	cin >> choice;
 
  	return choice;
+}
+
+void createStudent(Student &s) {
+	cout << "Enter Student ID: ";
+	cin >> s.id;
+	cout << "Student Name: ";
+	cin >> s.name;
+	cout << "Phone Number: ";
+	cin >> s.phoneNum;
+	cout << "Address: ";
+	cin >> s.address;
 }
 
 int main() {
@@ -35,33 +48,20 @@ int main() {
 	string address;
 
 	int pos;
+	int pos2;
 
 	while (running) {
 		selectedOption = options();
 		switch (selectedOption) {
 			case 0:
-				cout << "Enter Student ID: ";
-				cin >> s.id;
-				cout << "Student Name: ";
-				cin >> s.name;
-				cout << "Phone Number: ";
-				cin >> s.phoneNum;
-				cout << "Address: ";
-				cin >> s.address;
+				createStudent(s);
 				cout << x.push(s) << endl;
 				break;
 			case 1:
 				cout << x.pop() << endl;
 				break;
 			case 2:
-				cout << "Enter Student ID: ";
-				cin >> s.id;
-				cout << "Student Name: ";
-				cin >> s.name;
-				cout << "Phone Number: ";
-				cin >> s.phoneNum;
-				cout << "Address: ";
-				cin >> s.address;
+				createStudent(s);
 				cout << "Which Index: ";
 				cin >> pos;
 				cout << x.insert(s, pos) << endl;
@@ -72,14 +72,7 @@ int main() {
 				cout << x.remove(pos) << endl;
 				break;
 			case 4:
-				cout << "Enter Student ID: ";
-				cin >> s.id;
-				cout << "Student Name: ";
-				cin >> s.name;
-				cout << "Phone Number: ";
-				cin >> s.phoneNum;
-				cout << "Address: ";
-				cin >> s.address;
+				createStudent(s);
 				cout << "Which Index: ";
 				cin >> pos;
 				cout << x.overrideItemPos(s, pos) << endl;
@@ -102,6 +95,17 @@ int main() {
 				cout << "Your Array Has A Length Of: " << x.lengthOfStudentList() << endl;
 				break;
 			case 9:
+				cout << "Enter First Position: ";
+				cin >> pos;
+				cout << "Enter Second Position: ";
+				cin >> pos2;
+				cout << x.swap(pos, pos2) << endl;
+				break;
+			case 10:
+				x.resetArray();
+				cout << "Array Has Been Reset" << endl;
+				break;
+			case 11:
 				running = false;
 				break;
 			default:
