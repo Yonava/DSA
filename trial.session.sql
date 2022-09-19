@@ -10,7 +10,7 @@ CREATE TABLE Cities(
 );
 
 -- @BLOCK 
-SELECT * FROM Cities;
+SELECT * FROM Cities WHERE timeZone = 'PST';
 
 -- @BLOCK
 INSERT INTO Cities (cityName, timeZone, populationSize, surfaceArea)

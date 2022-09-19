@@ -23,10 +23,10 @@ int options() {
 }
 
 void createStudent(Student &s) {
-	cout << "Enter Student ID: ";
-	cin >> s.id;
 	cout << "Student Name: ";
 	cin >> s.name;
+	cout << "Enter Student ID: ";
+	cin >> s.id;
 	cout << "Phone Number: ";
 	cin >> s.phoneNum;
 	cout << "Address: ";
