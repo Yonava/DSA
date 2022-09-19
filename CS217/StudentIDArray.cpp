@@ -1,53 +1,72 @@
 #include "StudentIDArray.h"
 
 StudentIDArray::StudentIDArray() {
-  resetArray();
+  	resetArray();
 }
 
 void StudentIDArray::display() {
-  for (int i = 0; i < SIZE_OF_ARRAY; i++) {
-    string assignment = students[i].name == "Unoccupied" ? " Is Unassigned." : " Is Assigned To " + students[i].name + " - " + to_string(students[i].id);
-    cout << "Index " << i << assignment << endl;
-  }
+  	for (int i = 0; i != indexTracker; i++) {
+    	string assignment = " Is Assigned To " + students[i].name + " - " + to_string(students[i].id) + " - Phone #: " + students[i].phoneNum + " - Address: " + students[i].address;
+    	cout << "Index " << i << assignment << endl;
+  	}
 }
 
 string StudentIDArray::push(Student student) {
-  if (indexTracker == 9) return "Array Maxed Out";
-  students[indexTracker] = student;
-  indexTracker++;
-  return "Added Student";
+  	if (indexTracker == 9) return "Array Maxed Out";
+  	students[indexTracker] = student;
+  	indexTracker++;
+  	return "Added Student";
+}
+
+string StudentIDArray::insert(Student student, int pos) {
+  	if (pos > indexTracker) return "Out of Range, Try Pushing Instead";
+  	for (int i = indexTracker; i > pos; i--) {
+    	students[i] = students[i - 1];
+  	}
+  	students[pos] = student;
+  	indexTracker++;
+  	return "Item Successfully Inserted";
+}
+
+string StudentIDArray::remove(int pos) {
+	if (!(pos > -1 && pos < indexTracker)) return "Cannot Remove Undefined";
+	indexTracker--;
+	for (int i = pos; i < indexTracker; i++) {
+		students[i] = students[i + 1];
+	}
+	return "Removed Item";
 }
 
 int StudentIDArray::lengthOfStudentList() {
-  return indexTracker;
+  	return indexTracker;
 }
 
 string StudentIDArray::pop() {
-  if (indexTracker == 0) return "No Items To Pop";
-  indexTracker--;
-  return "Popped";
+  	if (indexTracker == 0) return "No Items To Pop";
+  	indexTracker--;
+  	return "Popped";
 }
 
 void StudentIDArray::resetArray() {
-  indexTracker = 0;
+  	indexTracker = 0;
 }
 
 string StudentIDArray::getStudentByIndex(int n) {
-  if (n >= indexTracker) return "Index " + to_string(n) + " Is Out of Range"; 
-  return students[n].name + " - " + to_string(students[n].id);
+  	if (n >= indexTracker) return "Index " + to_string(n) + " Is Out of Range"; 
+  	return students[n].name + " - " + to_string(students[n].id);
 }
 
 string StudentIDArray::overrideItemPos(Student student, int pos) {
-  if (pos >= indexTracker) return "Inputted position of " + to_string(pos) +  " out of range";
-  students[pos] = student;
-  return "Success!";
+  	if (pos >= indexTracker) return "Inputted position of " + to_string(pos) +  " out of range";
+  	students[pos] = student;
+  	return "Success!";
 }
 
 int StudentIDArray::getIndexOfID(int studentId) {
-  for (int i = 0; i < SIZE_OF_ARRAY; i++) {
-    if (studentId == students[i].id) {
-      return i;
-    }
-  }
-  return -1;
+  	for (int i = 0; i < SIZE_OF_ARRAY; i++) {
+    	if (studentId == students[i].id) {
+      		return i;
+    	}
+  	}
+  	return -1;
 }
