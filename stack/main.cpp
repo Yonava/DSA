@@ -8,9 +8,9 @@ int options() {
   	cout << "0 - Push Item" << endl;
   	cout << "1 - Pop Item" << endl;
     cout << "2 - Peek" << endl;
-    cout << "8 - Length of Stack" << endl;
-    cout << "10 - Reset Stack" << endl;
-  	cout << "11 - Exit Program" << endl;
+    cout << "3 - Length of Stack" << endl;
+    cout << "4 - Reset Stack" << endl;
+  	cout << "5 - Exit Program" << endl;
   	cin >> choice;
 
  	return choice;
@@ -36,13 +36,13 @@ int main() {
   	int selectedOption;
   	bool running = true;
 
-	string name;
-	int id;
-	string phoneNum;
-	string address;
+    string name;
+    int id;
+    string phoneNum;
+    string address;
 
-	int pos;
-	int pos2;
+    int pos;
+    int pos2;
 
 	while (running) {
 		selectedOption = options();
@@ -55,15 +55,17 @@ int main() {
 				cout << x.pop() << endl;
 				break;
 			case 2:
-				createStudent(s);
-				cout << "Which Index: ";
-				cin >> pos;
-				cout << x.insert(s, pos) << endl;
+				x.peek();
 				break;
-			case 8:
-				cout << "Your Array Has A Length Of: " << x.lengthOfStudentList() << endl;
+			case 3:
+				cout << "Your Stack Has A Length Of: " << x.lengthOfStudentList() << endl;
 				break;
-			case 11:
+			case 4:
+				cout << "Stack Reset." << endl;
+				x.resetArray();
+				break;
+			case 5:
+				cout << "Bye!" << endl;
 				running = false;
 				break;
 			default:
