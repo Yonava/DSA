@@ -10,12 +10,12 @@ int options() {
   	cout << "2 - Insert Item" << endl;
   	cout << "3 - Remove Item" << endl;
   	cout << "4 - Override Item" << endl;
-  	cout << "4 - Get Item By Index" << endl;
+  	cout << "5 - Get Item By Index" << endl;
   	cout << "6 - Get Index Of Student By Student ID" << endl;
   	cout << "7 - Display Contents of Array" << endl;
-	cout << "8 - Display Length of Array" << endl;
-	cout << "9 - Swap Two Students Position" << endl;
-	cout << "10 - Reset Array" << endl;
+    cout << "8 - Display Length of Array" << endl;
+    cout << "9 - Swap Two Students Position" << endl;
+    cout << "10 - Reset Array" << endl;
   	cout << "11 - Exit Program" << endl;
   	cin >> choice;
 
