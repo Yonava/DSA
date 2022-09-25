@@ -51,7 +51,7 @@ int main()
       list->insert(s);
       break;
     case 1:
-      cout << "Enter a Position: " << endl;
+      cout << "Enter a Position: ";
       cin >> pos;
       list->remove(pos);
       break;

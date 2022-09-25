@@ -5,8 +5,9 @@ StudentLinkedList::StudentLinkedList(Student* student)
 	Node* n = new Node;
 	n->student = student;
 	n->prev = nullptr;
-	head = n;
-	tail = n;
+	n->next = nullptr;
+	this->head = n;
+	this->tail = n;
 }
 
 StudentLinkedList::~StudentLinkedList() 
@@ -20,12 +21,18 @@ StudentLinkedList::~StudentLinkedList()
 
 void StudentLinkedList::insert(Student* student)
 {
+	// prints passed in students name
+	cout << this->head->student->name << endl;
+
 	Node* n = new Node;
 	n->student = student;
-	n->prev = tail;
-	tail->next = n;
-	tail = n;
-	tail->next = nullptr;
+	n->prev = this->tail;
+	this->tail->next = n;
+	this->tail = n;
+	this->tail->next = nullptr;
+
+	// prints passed in students name
+	cout << this->head->student->name << endl;
 }
 
 void StudentLinkedList::remove(int pos)

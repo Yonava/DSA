@@ -6,7 +6,7 @@ using namespace std;
 
 struct Student {
     string name;
-    int id;
+    string id;
     string phoneNum;
     string address;
 	string pronouns;
