@@ -2,33 +2,37 @@
 #include <string>
 #include <iostream>
 
-using std::string;
-
-struct Node {
-	Node* prev;
-	Node* next;
-	int data;
-};
+using namespace std;
 
 struct Student {
     string name;
     int id;
     string phoneNum;
     string address;
+	string pronouns;
+};
+
+struct Node {
+	Node* prev;
+	Node* next;
+	Student* student;
 };
 
 class StudentLinkedList {
 
 	private:
+		Node* tail;
+		Node* head;
+		int length;
 
 	public:
+		StudentLinkedList(Student* student);
+		~StudentLinkedList();
 
-	StudentLinkedList();
+		void insert(Student* student);
+		void remove(int index);
 
-	void insert(Student student);
-	void remove(int index);
-
-
+		void print();
 };
 
 

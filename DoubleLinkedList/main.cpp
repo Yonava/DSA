@@ -1,69 +1,72 @@
-#include <iostream>
-#include <string>
+#include "DoubleLinkList.h"
 
-using std::string;
+int options()
+{
+  // UI that allows users to select from a menu of choices
+  int choice;
+  cout << "Select The Following" << endl;
+  cout << "0 - Push Item" << endl;
+  cout << "1 - Pop Item" << endl;
+  cout << "2 - Length of Stack" << endl;
+  cout << "3 - Print" << endl;
+  cout << "4 - Exit Program" << endl;
+  cin >> choice;
 
-struct Node {
-	Node* prev;
-	Node* next;
-	int data;
-};
-
-void PrintForward(Node* head);
-void PrintReverse(Node* tail);
-
-int main() {
-
-	Node* head;
-	Node* tail;
-	Node* n;
-
-	n = new Node;
-	n->data = 1;
-	n->prev = NULL;
-	head = n;
-	tail = n;
-
-	n = new Node;
-	n->data = 2;
-	n->prev = tail;
-	tail->next = n;
-	tail = n;
-
-	n = new Node;
-	n->data = 3;
-	n->prev = tail;
-	tail->next = n;
-	tail = n;
-
-	n = new Node;
-	n->data = 4;
-	n->prev = tail;
-	tail->next = n;
-	tail = n;
-
-	tail->next = NULL;	
-
-	// PrintForward(head);
-	PrintReverse(tail);
-	
-	return 0;
+  return choice;
 }
 
-void PrintForward(Node* head) {
-	Node* temp = head;
-
-	while(temp != NULL) {
-		std::cout << temp->data << std::endl;
-		temp = temp->next;
-	}
+void createStudent(Student *s)
+{
+  cout << "Student Name: ";
+  cin >> s->name;
+  cout << "Enter Student ID: ";
+  cin >> s->id;
+  cout << "Phone Number: ";
+  cin >> s->phoneNum;
+  cout << "Address: ";
+  cin >> s->address;
+  cout << "Pronouns: ";
+  cin >> s->pronouns;
 }
 
-void PrintReverse(Node* tail) {
-	Node* temp = tail;
+int main()
+{
 
-	while(temp != NULL) {
-		std::cout << temp->data << std::endl;
-		temp = temp->prev;
-	}
+  Student *s = new Student;
+
+  createStudent(s);
+  StudentLinkedList *list = new StudentLinkedList(s);
+
+  int pos;
+
+  bool running = true;
+  while (running)
+  {
+    int option = options();
+    switch (option)
+    {
+    case 0:
+      cout << "Enter Student: " << endl;
+      createStudent(s);
+      list->insert(s);
+      break;
+    case 1:
+      cout << "Enter a Position: " << endl;
+      cin >> pos;
+      list->remove(pos);
+      break;
+    case 2:
+      cout << "Coming Soon :)" << endl;
+      break;
+    case 3:
+      list->print();
+      break;
+    case 4:
+      running = false;
+      delete list;
+      break;
+    }
+  }
+
+  return 0;
 }
