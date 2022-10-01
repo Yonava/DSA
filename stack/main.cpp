@@ -63,7 +63,7 @@ int main()
 				break;
 			case 4:
 				cout << "Stack Reset." << endl;
-				x.resetArray();
+				x.resetStack();
 				break;
 			case 5:
 				if (x.empty()) {

@@ -23,10 +23,10 @@ bool StudentStack::empty() {
 }
 
 bool StudentStack::full() {
-	return topItemIndex == (SIZE_OF_ARRAY - 1);
+	return topItemIndex == (SIZE_OF_STACK - 1);
 }
 
-void StudentStack::resetArray() {
+void StudentStack::resetStack() {
   	topItemIndex = -1;
 }
 
