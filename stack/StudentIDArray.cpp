@@ -1,35 +1,40 @@
-#include "StudentIDArray.h"
+#include "StudentStack.h"
 
-StudentIDArray::StudentIDArray() {
-  	resetArray();
-}
-
-string StudentIDArray::push(Student student) {
-  	if (indexTracker == 9) return "Array Maxed Out";
-  	students[indexTracker] = student;
-  	indexTracker++;
+string StudentStack::push(Student student) {
+  	if (full()) return "Array Maxed Out";
+  	students[topItemIndex + 1] = student;
+  	topItemIndex++;
   	return "Added Student";
 }
 
-int StudentIDArray::lengthOfStudentList() {
-  	return indexTracker;
+int StudentStack::size() {
+	lengthOfList = topItemIndex + 1;
+  	return lengthOfList;
 }
 
-string StudentIDArray::pop() {
-  	if (indexTracker == 0) return "No Items To Pop";
-  	indexTracker--;
+string StudentStack::pop() {
+  	if (empty()) return "No Items To Pop";
+  	topItemIndex--;
   	return "Popped";
 }
 
-void StudentIDArray::resetArray() {
-  	indexTracker = 0;
+bool StudentStack::empty() {
+	return topItemIndex == -1;
 }
 
-void StudentIDArray::peek() {
-	if (indexTracker == 0) {
+bool StudentStack::full() {
+	return topItemIndex == (SIZE_OF_ARRAY - 1);
+}
+
+void StudentStack::resetArray() {
+  	topItemIndex = -1;
+}
+
+void StudentStack::peek() {
+	if (empty()) {
 		cout << "Stack is empty!" << endl;
 	} else {
-		Student s = students[indexTracker - 1];
+		Student s = students[topItemIndex];
 		cout << s.name << " - " << s.id << " - " << s.address << " - " << s.phoneNum << endl;
 	}
 }
