@@ -28,9 +28,7 @@ StudentLinkedList::~StudentLinkedList()
 
 	temp = nullptr;
 	delete temp;
-	delete this->head;
 	delete this->tail;
-	delete this->pos;
 }
 
 int StudentLinkedList::getLength()
