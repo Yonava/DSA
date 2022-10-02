@@ -11,9 +11,8 @@ int options()
 	cout << "1 - Pop Item" << endl;
 	cout << "2 - Peek" << endl;
 	cout << "3 - Length of Stack" << endl;
-	cout << "4 - Reset Stack" << endl;
-	cout << "5 - Is Empty?" << endl;
-	cout << "6 - Exit Program" << endl;
+	cout << "4 - Is Empty?" << endl;
+	cout << "5 - Exit Program" << endl;
 	cin >> choice;
 
 	return choice;
@@ -34,9 +33,11 @@ void createStudent(Student *s)
 int main()
 {
 
-	// instanciates a studentidarray object
-	StudentLLStack* x = new StudentLLStack;
-	Student s;
+	Student *s;
+  	createStudent(s);
+
+	// instanciates our stack
+	StudentLLStack *x = new StudentLLStack(s);
 
 	int selectedOption;
 	bool running = true;
@@ -61,19 +62,16 @@ int main()
 				cout << "Your Stack Has A Length Of: " << x->size() << endl;
 				break;
 			case 4:
-				cout << "Stack Reset." << endl;
-				x->resetStack();
-				break;
-			case 5:
 				if (x->empty()) {
 					cout << "Stack is empty" << endl;
 				} else {
 					cout << "Stack is not empty" << endl;
 				}
 				break;
-			case 6:
+			case 5:
 				cout << "Bye!" << endl;
 				running = false;
+				delete x;
 				break;
 			default:
 				cout << "Input Unrecognized" << endl;

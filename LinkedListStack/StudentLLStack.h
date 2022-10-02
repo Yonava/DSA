@@ -19,7 +19,7 @@ struct Student
 };
 
 struct Node {
-	Node *next;
+	Node *prev;
 	Student *student;
 };
 
@@ -27,10 +27,12 @@ class StudentLLStack {
 	private:
 		int itemsInList = 0;
 		Node *topItem;
-		Node *beforeTop;
 	public:
 		// constructor takes in first item to setup LL
 		StudentLLStack(Student *s);
+
+		// destructor to free pointers from memory
+		~StudentLLStack();
 
 		// adds item to the stack, returns true if successful
 		bool push(Student *s);
