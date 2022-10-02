@@ -37,32 +37,33 @@ int main()
   	createStudent(s);
 
 	// instanciates our stack
-	StudentLLStack *x = new StudentLLStack(s);
+	StudentLLStack *stack = new StudentLLStack(s);
 
 	int selectedOption;
 	bool running = true;
 
 	while (running)
 	{
+		Student *newStudent = new Student;
 		selectedOption = options();
 		cout << "------------------" << endl;
 		switch (selectedOption)
 		{
 			case 0:
 				createStudent(s);
-				cout << x->push(s) << endl;
+				cout << stack->push(s) << endl;
 				break;
 			case 1:
-				cout << x->pop() << endl;
+				cout << stack->pop() << endl;
 				break;
 			case 2:
-				x->peek();
+				stack->peek();
 				break;
 			case 3:
-				cout << "Your Stack Has A Length Of: " << x->size() << endl;
+				cout << "Your Stack Has A Length Of: " << stack->size() << endl;
 				break;
 			case 4:
-				if (x->empty()) {
+				if (stack->empty()) {
 					cout << "Stack is empty" << endl;
 				} else {
 					cout << "Stack is not empty" << endl;
@@ -71,13 +72,20 @@ int main()
 			case 5:
 				cout << "Bye!" << endl;
 				running = false;
-				delete x;
+				delete stack;
 				break;
 			default:
 				cout << "Input Unrecognized" << endl;
 				break;
 		}
+
+		newStudent = nullptr;
+		delete newStudent;
 	}
 
+	s = nullptr;
+	stack = nullptr;
+	delete s;
+	delete stack;
 	return 0;
 }
