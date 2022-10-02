@@ -2,7 +2,6 @@
 
 int options()
 {
-
 	// UI that allows users to select from a menu of choices
 	int choice;
 	cout << "------------------" << endl;
@@ -28,15 +27,15 @@ void createStudent(Student *s)
 	cin >> s->phoneNum;
 	cout << "Address: ";
 	cin >> s->address;
+	cout << "------------------" << endl;
 }
 
 int main()
 {
-
-	Student *s;
+	Student *s = new Student();
   	createStudent(s);
 
-	// instanciates our stack
+	// instantiates our stack
 	StudentLLStack *stack = new StudentLLStack(s);
 
 	int selectedOption;
@@ -50,17 +49,25 @@ int main()
 		switch (selectedOption)
 		{
 			case 0:
-				createStudent(s);
-				cout << stack->push(s) << endl;
+				createStudent(newStudent);
+				if (stack->push(newStudent)) {
+					cout << newStudent->name + " Has Been Pushed On The Stack" << endl;
+				} else {
+					cout << "Item Couldn't Be Pushed." << endl;
+				}
 				break;
 			case 1:
-				cout << stack->pop() << endl;
+				if (stack->pop()) {
+					cout << "Item Popped." << endl;
+				} else {
+					cout << "Popping The Last Item Would Destroy The Linked List!" << endl;
+				}
 				break;
 			case 2:
-				stack->peek();
+				cout << stack->peek() << endl;
 				break;
 			case 3:
-				cout << "Your Stack Has A Length Of: " << stack->size() << endl;
+				cout << "Students In Stack: " << stack->size() << endl;
 				break;
 			case 4:
 				if (stack->empty()) {
@@ -72,7 +79,6 @@ int main()
 			case 5:
 				cout << "Bye!" << endl;
 				running = false;
-				delete stack;
 				break;
 			default:
 				cout << "Input Unrecognized" << endl;

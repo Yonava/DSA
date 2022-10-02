@@ -35,7 +35,7 @@ void createStudent(Student &s) {
 
 int main() {
 
-  	// instanciates a studentidarray object
+  	// instantiates our array
   	StudentIDArray x = StudentIDArray();
   	Student s;
   

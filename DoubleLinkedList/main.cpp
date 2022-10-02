@@ -40,6 +40,8 @@ int main()
 
 	Student *s = new Student;
 	createStudent(s);
+
+  // instantiates our DLL
 	StudentLinkedList *list = new StudentLinkedList(s);
 
 	int pos;
