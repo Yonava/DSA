@@ -1,7 +1,7 @@
 /*
 	Authored By Yona Voss-Andreae,
 	ID #2073993 - yona.voss-andreae@snhu.edu,
-	CS217 Assignment 4, Array-Based Stack
+	CS217 Assignment 5, Linked List Stack
 */
 
 #pragma once
