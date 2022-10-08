@@ -1,3 +1,9 @@
+/*
+  Authored By Yona Voss-Andreae,
+  ID #2073993 - yona.voss-andreae@snhu.edu,
+  CS217 Assignment 6, Stack-Queue
+*/
+
 #include <iostream>
 #include <stack>
 #include <queue>
@@ -9,18 +15,18 @@ using std::queue;
 using std::stack;
 
 // prints 5 ints from the top of the stack, returns false if stack out of ints
-bool printAndPop(stack<int> &s)
+bool printAndPop(stack<int> &stack)
 {
   for (int i = 0; i < 5; i++)
   {
-    if (s.empty())
+    if (stack.empty())
     {
       return false;
     }
     else
     {
-      cout << s.top() << " ";
-      s.pop();
+      cout << stack.top() << " ";
+      stack.pop();
     }
   }
   return true;
@@ -28,37 +34,37 @@ bool printAndPop(stack<int> &s)
 
 int main()
 {
-  stack<int> s;
-  queue<int> q;
+  stack<int> stack;
+  queue<int> queue;
 
   int num = 1;
   while (num != 0)
   {
     cout << "Enter Number: ";
     cin >> num;
-    q.push(num);
+    queue.push(num);
   }
 
-  while (!q.empty())
+  while (!queue.empty())
   {
 
     // positive numbers
-    if (q.front() > 0)
+    if (queue.front() > 0)
     {
-      s.push(q.front());
+      stack.push(queue.front());
     }
 
     // negative numbers
-    else if (q.front() < 0)
+    else if (queue.front() < 0)
     {
-      if (!printAndPop(s))
+      if (!printAndPop(stack))
       {
         cout << "\nError: less than 5 numbers left\n";
         return 0;
       }
     }
 
-    q.pop();
+    queue.pop();
   }
 
   return 0;
