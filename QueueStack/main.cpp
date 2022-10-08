@@ -5,14 +5,20 @@
 using std::cin;
 using std::cout;
 using std::endl;
-using std::stack;
 using std::queue;
+using std::stack;
 
-bool printAndPop(stack <int> &s) {
-  for (int i = 0; i < 5; i++) {
-    if (s.empty()) {
+// prints 5 ints from the top of the stack, returns false if stack out of ints
+bool printAndPop(stack<int> &s)
+{
+  for (int i = 0; i < 5; i++)
+  {
+    if (s.empty())
+    {
       return false;
-    } else {
+    }
+    else
+    {
       cout << s.top() << " ";
       s.pop();
     }
@@ -20,27 +26,33 @@ bool printAndPop(stack <int> &s) {
   return true;
 }
 
-int main() {
-  stack <int> s;
-  queue <int> q;
+int main()
+{
+  stack<int> s;
+  queue<int> q;
 
   int num = 1;
-  while (num != 0) {
+  while (num != 0)
+  {
     cout << "Enter Number: ";
     cin >> num;
     q.push(num);
   }
 
-  while (!q.empty()) {
+  while (!q.empty())
+  {
 
     // positive numbers
-    if (q.front() > 0) {
+    if (q.front() > 0)
+    {
       s.push(q.front());
     }
 
     // negative numbers
-    else if (q.front() < 0) {
-      if (!printAndPop(s)) {
+    else if (q.front() < 0)
+    {
+      if (!printAndPop(s))
+      {
         cout << "\nError: less than 5 numbers left\n";
         return 0;
       }
