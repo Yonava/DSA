@@ -9,8 +9,7 @@ function printNpop() {
   return true
 }
 
-// enter Mr. Es test cases
-const input = []
+const input = [80, 1 ,2 ,3 ,4, 5 ,-1 ,20 ,30 ,40 ,50, 6 ,7 ,8, 9 ,10, -2, 11 ,12, -3, 33, 22 ,-5]
 
 let queue = []
 for (let i = 0; i < input.length; i++) {
