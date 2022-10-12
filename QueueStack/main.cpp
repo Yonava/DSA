@@ -12,6 +12,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::queue;
+
 using std::stack;
 
 // prints 5 ints from the top of the stack, returns false if stack out of ints
@@ -36,7 +37,6 @@ int main()
 {
   stack<int> stack;
   queue<int> queue;
-
   int num = 1;
   while (num != 0)
   {
@@ -44,10 +44,8 @@ int main()
     cin >> num;
     queue.push(num);
   }
-
   while (!queue.empty())
   {
-
     // positive numbers
     if (queue.front() > 0)
     {
