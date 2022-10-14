@@ -2,6 +2,12 @@
 
 void MyQueue::makeEmpty() {
   while(!empty()) {
-    pop();
+    queue::pop();
   }
+}
+
+int MyQueue::pop() {
+  int output = front();
+  queue::pop();
+  return output;
 }

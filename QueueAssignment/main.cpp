@@ -3,16 +3,18 @@
 int main() {
 
   MyQueue queue = MyQueue();
+  
   int num = 1;
   while (num != 0) {
     cout << "Enter Number: ";
     cin >> num;
-    queue.push(num);
+    if (num != 0) queue.push(num);
   }
 
-  cout << queue.size() << endl;
+  cout << queue.pop() << endl;
+  cout << "Size of Queue: " << queue.size() << endl;
   queue.makeEmpty();
-  cout << queue.size() << endl;
+  cout << "Size of Queue: " << queue.size() << endl;
 
 
   return 0;

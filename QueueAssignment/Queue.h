@@ -9,4 +9,5 @@ class MyQueue : public queue<int>
 {
   public:
     void makeEmpty();
+    int pop();
 };
