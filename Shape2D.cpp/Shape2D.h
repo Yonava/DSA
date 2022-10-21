@@ -1,6 +1,21 @@
 class Shape2D {
   public:
-    float Area(float s);
-    float Area(float b, float h);
-    float Area(float a, float b, float h);
+    virtual float Area() {
+      return 0.0f;
+    }
+};
+
+class Square : public Shape2D {
+  float side_;
+  public:
+    Square();
+    float Area();
+};
+
+class Rect : public Shape2D {
+  float length_;
+  float width_;
+  public:
+    Rect();
+    float Area();
 };
