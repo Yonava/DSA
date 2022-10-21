@@ -8,7 +8,7 @@ class Shape2D {
 class Square : public Shape2D {
   float side_;
   public:
-    Square();
+    Square(float s);
     float Area();
 };
 
@@ -16,6 +16,6 @@ class Rect : public Shape2D {
   float length_;
   float width_;
   public:
-    Rect();
+    Rect(float l, float w);
     float Area();
 };
