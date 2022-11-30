@@ -18,7 +18,7 @@ class Shape2D : virtual public Shape
 {
 public:
   virtual float Area() const = 0;
-  void ShowArea() const;
+  void ShowArea();
   virtual string GetName2D() const = 0;
   bool operator>(const Shape2D &rhs) const;
   bool operator<(const Shape2D &rhs) const;

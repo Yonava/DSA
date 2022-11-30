@@ -1,5 +1,9 @@
 #include "Shapes.h"
 
+void Shape2D::ShowArea() {
+  cout << "Area of " << GetName2D() << " is: " << Area();
+}
+
 Square::Square(float sideLength) {
   s = sideLength;
 }
