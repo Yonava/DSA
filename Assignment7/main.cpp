@@ -254,7 +254,7 @@ int main()
       break;
     case 3:
       insertionSort2D(shapes2D);
-      for (unsigned int i = 0; i < shapes2D.size(); i++)
+      for (int i = 0; i < shapes2D.size(); i++)
       {
         shapes2D[i]->Display();
         std::printf("\n");
@@ -296,7 +296,7 @@ int main()
       break;
     case 8:
       insertionSort3D(shapes3D);
-      for (unsigned int i = 0; i < shapes3D.size(); i++)
+      for (int i = 0; i < shapes3D.size(); i++)
       {
         shapes3D[i]->Display();
         std::printf("\n");

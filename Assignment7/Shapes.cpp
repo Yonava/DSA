@@ -3,14 +3,14 @@
 //  2D SHAPES
 void Shape2D::ShowArea() const
 {
-  cout << "Area: " << this->Area();
+  printf("Area: %f", this->Area());
 }
 
 void Shape2D::Display() const
 {
-  cout << this->GetName2D() << " (";
+  printf("%s (", this->GetName2D().c_str());
   this->ShowArea();
-  cout << ")";
+  printf(")\n");
 }
 
 bool Shape2D::operator>(const Shape2D &rhs) const
@@ -31,14 +31,14 @@ bool Shape2D::operator==(const Shape2D &rhs) const
 //  3D SHAPES
 void Shape3D::ShowVolume() const
 {
-  cout << "Volume: " << this->Volume();
+  printf("Volume: %f", this->Volume());
 }
 
 void Shape3D::Display() const
 {
-  cout << this->GetName3D() << " (";
+  printf("%s (", this->GetName3D().c_str());
   this->ShowVolume();
-  cout << ")";
+  printf(")\n");
 }
 
 bool Shape3D::operator>(const Shape3D &rhs) const
@@ -59,12 +59,12 @@ bool Shape3D::operator==(const Shape3D &rhs) const
 //  SQUARE
 float Square::Area() const
 {
-  return this->side_ * this->side_;
+  return this->side * this->side;
 }
 
 void Square::Scale(float scaleFactor)
 {
-  this->side_ *= scaleFactor;
+  this->side *= scaleFactor;
 }
 
 string Square::GetName2D() const
@@ -75,13 +75,13 @@ string Square::GetName2D() const
 //  RECTANGLE
 float Rectangle::Area() const
 {
-  return this->width_ * this->height_;
+  return this->width * this->height;
 }
 
 void Rectangle::Scale(float scaleFactor)
 {
-  this->width_ *= scaleFactor;
-  this->height_ *= scaleFactor;
+  this->width *= scaleFactor;
+  this->height *= scaleFactor;
 }
 
 string Rectangle::GetName2D() const
@@ -92,13 +92,13 @@ string Rectangle::GetName2D() const
 //  TRIANGLE
 float Triangle::Area() const
 {
-  return 0.5f * this->base_ * this->height_;
+  return 0.5f * this->base * this->height;
 }
 
 void Triangle::Scale(float scaleFactor)
 {
-  this->base_ *= scaleFactor;
-  this->height_ *= scaleFactor;
+  this->base *= scaleFactor;
+  this->height *= scaleFactor;
 }
 
 string Triangle::GetName2D() const
@@ -109,12 +109,12 @@ string Triangle::GetName2D() const
 //  CIRCLE
 float Circle::Area() const
 {
-  return PI * this->radius_ * this->radius_;
+  return PI * this->radius * this->radius;
 }
 
 void Circle::Scale(float scaleFactor)
 {
-  this->radius_ *= scaleFactor;
+  this->radius *= scaleFactor;
 }
 
 string Circle::GetName2D() const
@@ -126,13 +126,13 @@ string Circle::GetName2D() const
 float Ellipse::Area() const
 {
   // Semi-major and semi-minor axes are half the length of the axes
-  return PI * (this->major_ / 2) * (this->minor_ / 2);
+  return PI * (this->major / 2) * (this->minor / 2);
 }
 
 void Ellipse::Scale(float scaleFactor)
 {
-  this->major_ *= scaleFactor;
-  this->minor_ *= scaleFactor;
+  this->major *= scaleFactor;
+  this->minor *= scaleFactor;
 }
 
 string Ellipse::GetName2D() const
@@ -143,14 +143,14 @@ string Ellipse::GetName2D() const
 //  TRAPEZOID
 float Trapezoid::Area() const
 {
-  return ((this->aside_ + this->bside_) * this->height_) / 2;
+  return ((this->aside + this->bside) * this->height) / 2;
 }
 
 void Trapezoid::Scale(float scaleFactor)
 {
-  this->aside_ *= scaleFactor;
-  this->bside_ *= scaleFactor;
-  this->height_ *= scaleFactor;
+  this->aside *= scaleFactor;
+  this->bside *= scaleFactor;
+  this->height *= scaleFactor;
 }
 
 string Trapezoid::GetName2D() const
@@ -161,12 +161,12 @@ string Trapezoid::GetName2D() const
 //  SECTOR
 float Sector::Area() const
 {
-  return 0.5f * this->radius_ * this->radius_ * this->degreesToRadians(this->angle_);
+  return 0.5f * this->radius * this->radius * this->degreesToRadians(this->angle);
 }
 
 void Sector::Scale(float scaleFactor)
 {
-  this->radius_ *= scaleFactor;
+  this->radius *= scaleFactor;
 }
 
 float Sector::degreesToRadians(float degrees) const
@@ -182,12 +182,12 @@ string Sector::GetName2D() const
 //  TRIANGULAR PYRAMID
 float TriangularPyramid::Volume() const
 {
-  return this->Triangle::Area() * this->height_ / 3;
+  return this->Triangle::Area() * this->height / 3;
 }
 
 void TriangularPyramid::Scale(float scaleFactor)
 {
-  this->height_ *= scaleFactor;
+  this->height *= scaleFactor;
   this->Triangle::Scale(scaleFactor);
 }
 
@@ -204,12 +204,12 @@ void TriangularPyramid::Display() const
 //  RECTANGULAR PYRAMID
 float RectangularPyramid::Volume() const
 {
-  return this->Rectangle::Area() * this->height_ / 3;
+  return this->Rectangle::Area() * this->height / 3;
 }
 
 void RectangularPyramid::Scale(float scaleFactor)
 {
-  this->height_ *= scaleFactor;
+  this->height *= scaleFactor;
   this->Rectangle::Scale(scaleFactor);
 }
 
@@ -226,12 +226,12 @@ void RectangularPyramid::Display() const
 //  CYLINDER
 float Cylinder::Volume() const
 {
-  return this->Circle::Area() * this->height_;
+  return this->Circle::Area() * this->height;
 }
 
 void Cylinder::Scale(float scaleFactor)
 {
-  this->height_ *= scaleFactor;
+  this->height *= scaleFactor;
   this->Circle::Scale(scaleFactor);
 }
 
@@ -248,12 +248,12 @@ void Cylinder::Display() const
 //  SPHERE
 float Sphere::Volume() const
 {
-  return 4 * this->radius_ * this->Circle::Area() / 3;
+  return 4 * this->radius * this->Circle::Area() / 3;
 }
 
 void Sphere::Scale(float scaleFactor)
 {
-  this->radius_ *= scaleFactor;
+  this->radius *= scaleFactor;
   this->Circle::Scale(scaleFactor);
 }
 
