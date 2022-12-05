@@ -7,7 +7,7 @@ using std::getline;
 using std::vector;
 
 // creates 2d shape objects and adds them to the 2d shapes vector
-void make2D(vector<Shape2D *> &shapes2D)
+void create2D(vector<Shape2D *> &shapes2D)
 {
   shapes2D.push_back(new Square);
   shapes2D.push_back(new Square(2.5));
@@ -31,20 +31,55 @@ void make2D(vector<Shape2D *> &shapes2D)
   shapes2D.push_back(new Sector(2.9, 3.0));
 }
 
-void make3D(vector<Shape3D *> &shapes3D)
+void create3D(vector<Shape3D *> &shapes3D)
 {
   shapes3D.push_back(new TriangularPyramid);
-  shapes3D.push_back(new TriangularPyramid(1.3, 2.3, 4.5));
-  shapes3D.push_back(new TriangularPyramid(3.1, 1.1, 2.00));
-  shapes3D.push_back(new TriangularPyramid(44.2, 32.1, 5.8));
+  shapes3D.push_back(new TriangularPyramid(4.1, 7.0, 6.8));
+
   shapes3D.push_back(new RectangularPyramid);
-  shapes3D.push_back(new RectangularPyramid(1.3, 2.4, 5.6));
+  shapes3D.push_back(new RectangularPyramid(0.5, 0.5, 0.5));
+
   shapes3D.push_back(new Cylinder);
-  shapes3D.push_back(new Cylinder(1.3, 4.5));
-  shapes3D.push_back(new Cylinder(9.8, 1.2));
+  shapes3D.push_back(new Cylinder(9.9, 9.8));
+
   shapes3D.push_back(new Sphere);
   shapes3D.push_back(new Sphere(4.5));
-  shapes3D.push_back(new Sphere(0.05));
+}
+
+void createMixed(vector<Shape *> &shapes)
+{
+  shapes.push_back(new Square);
+  shapes.push_back(new Square(2.5));
+
+  shapes.push_back(new Rectangle);
+  shapes.push_back(new Rectangle(2.5, 3.5));
+
+  shapes.push_back(new Triangle);
+  shapes.push_back(new Triangle(2.1, 3.0));
+
+  shapes.push_back(new Circle);
+  shapes.push_back(new Circle(2.3));
+
+  shapes.push_back(new Trapezoid);
+  shapes.push_back(new Trapezoid(2.2, 3.2, 4.1));
+
+  shapes.push_back(new Ellipse);
+  shapes.push_back(new Ellipse(2.0, 3.4));
+
+  shapes.push_back(new Sector);
+  shapes.push_back(new Sector(2.9, 3.0));
+
+  shapes.push_back(new TriangularPyramid);
+  shapes.push_back(new TriangularPyramid(4.1, 7.0, 6.8));
+
+  shapes.push_back(new RectangularPyramid);
+  shapes.push_back(new RectangularPyramid(0.5, 0.5, 0.5));
+
+  shapes.push_back(new Cylinder);
+  shapes.push_back(new Cylinder(9.9, 9.8));
+
+  shapes.push_back(new Sphere);
+  shapes.push_back(new Sphere(4.5));
 }
 
 void print2DShapes(vector<Shape2D *> &shapes2D)
@@ -211,6 +246,9 @@ int main()
   vector<Shape2D *> shapes2D;
   vector<Shape3D *> shapes3D;
 
+  // mixed shapes vector
+  vector<Shape *> shapes;
+
   // menu loop variables
   float searchVal;
   std::string buffer;
@@ -218,8 +256,9 @@ int main()
   bool quit = false;
 
   // Create test data
-  make2D(shapes2D);
-  make3D(shapes3D);
+  create2D(shapes2D);
+  create3D(shapes3D);
+  createMixed(shapes);
 
   // Main menu
   while (!quit)
