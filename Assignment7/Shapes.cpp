@@ -1,95 +1,226 @@
 #include "Shapes.h"
 
-void Shape2D::ShowArea() {
-  cout << "Area of " << GetName2D() << " is: " << Area();
+//  2D SHAPES
+void Shape2D::ShowArea() const {
+    cout << "Area: " << this->Area();
 }
 
-Square::Square(float sideLength) {
-  s = sideLength;
+void Shape2D::Display() const {
+    cout << this->GetName2D() << " (";
+    this->ShowArea();
+    cout << ")";
 }
 
-float Square::Area() {
-  return s * s;
+bool Shape2D::operator>(const Shape2D& rhs) const {
+    if (this->Area() > rhs.Area()) return true;
+    return false;
 }
 
-string Square::GetName2D() {
-  return "Square";
+bool Shape2D::operator<(const Shape2D& rhs) const {
+    if (this->Area() < rhs.Area()) return true;
+    return false;
 }
 
-Rectangle::Rectangle(float width, float length) {
-  w = width;
-  l = length;
+bool Shape2D::operator==(const Shape2D& rhs) const {
+    if (this->Area() == rhs.Area()) return true;
+    return false;
 }
 
-float Rectangle::Area() {
-  return w * l;
+//  3D SHAPES
+void Shape3D::ShowVolume() const {
+    cout << "Volume: " << this->Volume();
 }
 
-string Rectangle::GetName2D() {
-  return "Rectangle";
+void Shape3D::Display() const {
+    cout << this->GetName3D() << " (";
+    this->ShowVolume();
+    cout << ")";
 }
 
-Triangle::Triangle(float base, float height) {
-  b = base;
-  h = height;
+bool Shape3D::operator>(const Shape3D& rhs) const {
+    if (this->Volume() > rhs.Volume()) return true;
+    return false;
 }
 
-float Triangle::Area() {
-  return (b * h) / 2;
+bool Shape3D::operator<(const Shape3D& rhs) const {
+    if (this->Volume() < rhs.Volume()) return true;
+    return false;
 }
 
-string Triangle::GetName2D() {
-  return "Triangle";
+bool Shape3D::operator==(const Shape3D& rhs) const {
+    if (this->Volume() == rhs.Volume()) return true;
+    return false;
 }
 
-Circle::Circle(float radius) {
-  r = radius;
+//  SQUARE
+float Square::Area() const {
+    return this->side_ * this->side_;
 }
 
-float Circle::Area() {
-  return r * r * PI;
+void Square::Scale(float scaleFactor) {
+    this->side_ *= scaleFactor;
 }
 
-string Circle::GetName2D() {
-  return "Circle";
+string Square::GetName2D() const {
+    return "Square";
 }
 
-Ellipse::Ellipse(float majorAxis, float minorAxis) {
-  maj = majorAxis;
-  min = minorAxis;
+//  RECTANGLE
+float Rectangle::Area() const {
+    return this->width_ * this->height_;
 }
 
-float Ellipse::Area() {
-  return maj * min * PI;
+void Rectangle::Scale(float scaleFactor) {
+    this->width_ *= scaleFactor;
+    this->height_ *= scaleFactor;
 }
 
-string Ellipse::GetName2D() {
-  return "Ellipse";
+string Rectangle::GetName2D() const {
+    return "Rectangle";
 }
 
-Trapezoid::Trapezoid(float sideA, float sideB, float height) {
-  a = sideA;
-  b = sideB;
-  h = height;
+//  TRIANGLE
+float Triangle::Area() const {
+    return 0.5f * this->base_ * this->height_; 
 }
 
-float Trapezoid::Area() {
-  return .5 * (a + b) * h;
+void Triangle::Scale(float scaleFactor) {
+    this->base_ *= scaleFactor;
+    this->height_ *= scaleFactor;
 }
 
-string Trapezoid::GetName2D() {
-  return "Trapezoid";
+string Triangle::GetName2D() const {
+    return "Triangle";
 }
 
-Sector::Sector(float radius, float angleInDegrees) {
-  r = radius;
-  a = angleInDegrees;
+//  CIRCLE
+float Circle::Area() const {
+    return PI * this->radius_ * this->radius_;
 }
 
-float Sector::Area() {
-  return  .5 * r * r * a;
+void Circle::Scale(float scaleFactor) {
+    this->radius_ *= scaleFactor;
 }
 
-string Sector::GetName2D() {
-  return "Sector";
+string Circle::GetName2D() const {
+    return "Circle";
+}
+
+//  ELLIPSE
+float Ellipse::Area() const {
+    // Semi-major and semi-minor axes are half the length of the axes
+    return PI * (this->major_ / 2) * (this->minor_ / 2);
+}
+
+void Ellipse::Scale(float scaleFactor) {
+    this->major_ *= scaleFactor;
+    this->minor_ *= scaleFactor;
+}
+
+string Ellipse::GetName2D() const {
+    return "Ellipse";
+}
+
+//  TRAPEZOID
+float Trapezoid::Area() const {
+    return ((this->aside_ + this->bside_) * this->height_) / 2;
+}
+
+void Trapezoid::Scale(float scaleFactor) {
+    this->aside_ *= scaleFactor;
+    this->bside_ *= scaleFactor;
+    this->height_ *= scaleFactor;
+}
+
+string Trapezoid::GetName2D() const {
+    return "Trapezoid";
+}
+
+//  SECTOR
+float Sector::Area() const {
+    return 0.5f * this->radius_ * this->radius_ * this->degreesToRadians(this->angle_);
+}
+
+void Sector::Scale(float scaleFactor) {
+    this->radius_ *= scaleFactor;
+}
+
+float Sector::degreesToRadians(float degrees) const {
+    return degrees * PI / 180;
+}
+
+string Sector::GetName2D() const {
+    return "Sector";
+}
+
+//  TRIANGULAR PYRAMID
+float TriangularPyramid::Volume() const {
+    return this->Triangle::Area() * this->height_ / 3;
+}
+
+void TriangularPyramid::Scale(float scaleFactor) {
+    this->height_ *= scaleFactor;
+    this->Triangle::Scale(scaleFactor);
+}
+
+string TriangularPyramid::GetName3D() const {
+    return "Triangular Pyramid";
+}
+
+void TriangularPyramid::Display() const {
+    Shape3D::Display();
+}
+
+//  RECTANGULAR PYRAMID
+float RectangularPyramid::Volume() const {
+    return this->Rectangle::Area() * this->height_ / 3;
+}
+
+void RectangularPyramid::Scale(float scaleFactor) {
+    this->height_ *= scaleFactor;
+    this->Rectangle::Scale(scaleFactor);
+}
+
+string RectangularPyramid::GetName3D() const {
+    return "Rectangular Pyramid";
+}
+
+void RectangularPyramid::Display() const {
+    Shape3D::Display();
+}
+
+//  CYLINDER
+float Cylinder::Volume() const {
+    return this->Circle::Area() * this->height_;
+}
+
+void Cylinder::Scale(float scaleFactor) {
+    this->height_ *= scaleFactor;
+    this->Circle::Scale(scaleFactor);
+}
+
+string Cylinder::GetName3D() const {
+    return "Cylinder";
+}
+
+void Cylinder::Display() const {
+    Shape3D::Display();
+}
+
+//  SPHERE
+float Sphere::Volume() const {
+    return 4 * this->radius_ * this->Circle::Area() / 3;
+}
+
+void Sphere::Scale(float scaleFactor) {
+    this->radius_ *= scaleFactor;
+    this->Circle::Scale(scaleFactor);
+}
+
+string Sphere::GetName3D() const {
+    return "Sphere";
+}
+
+void Sphere::Display() const {
+    Shape3D::Display();
 }
