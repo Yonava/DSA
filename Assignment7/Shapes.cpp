@@ -15,23 +15,17 @@ void Shape2D::Display() const
 
 bool Shape2D::operator>(const Shape2D &rhs) const
 {
-  if (this->Area() > rhs.Area())
-    return true;
-  return false;
+  return (this->Area() > rhs.Area());
 }
 
 bool Shape2D::operator<(const Shape2D &rhs) const
 {
-  if (this->Area() < rhs.Area())
-    return true;
-  return false;
+  return (this->Area() < rhs.Area());
 }
 
 bool Shape2D::operator==(const Shape2D &rhs) const
 {
-  if (this->Area() == rhs.Area())
-    return true;
-  return false;
+  return (this->Area() == rhs.Area());
 }
 
 //  3D SHAPES
@@ -49,23 +43,17 @@ void Shape3D::Display() const
 
 bool Shape3D::operator>(const Shape3D &rhs) const
 {
-  if (this->Volume() > rhs.Volume())
-    return true;
-  return false;
+  return (this->Volume() > rhs.Volume());
 }
 
 bool Shape3D::operator<(const Shape3D &rhs) const
 {
-  if (this->Volume() < rhs.Volume())
-    return true;
-  return false;
+  return (this->Volume() < rhs.Volume());
 }
 
 bool Shape3D::operator==(const Shape3D &rhs) const
 {
-  if (this->Volume() == rhs.Volume())
-    return true;
-  return false;
+  return (this->Volume() == rhs.Volume());
 }
 
 //  SQUARE
