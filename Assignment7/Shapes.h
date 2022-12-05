@@ -38,7 +38,8 @@ public:
   bool operator==(const Shape3D &rhs) const;
 };
 
-//  2D SHAPES
+// 2D Shapes Classes
+
 class Square : virtual public Shape2D
 {
 private:
@@ -114,7 +115,7 @@ public:
 class Sector : virtual public Shape2D
 {
 private:
-  // The angle is in degrees
+  // angle in degrees
   float radius, angle;
 
 public:
@@ -125,7 +126,8 @@ public:
   string GetName2D() const;
 };
 
-//  3D SHAPES
+//  3D Shapes Classes
+
 class TriangularPyramid : public Shape3D, private Triangle
 {
 private:
@@ -168,12 +170,17 @@ public:
 class Sphere : public Shape3D, private Circle
 {
 private:
+  // radius is inherited from Circle
   float radius;
 
 public:
   Sphere(float radius = 0) : radius(radius), Circle(radius) {}
+  // Volume() is inherited from Shape3D
   float Volume() const;
+  // Scale() is inherited from Shape
   void Scale(float scaleFactor);
+  // GetName3D() is inherited from Shape3D
   string GetName3D() const;
+  // Display() is inherited from Shape
   void Display() const;
 };
