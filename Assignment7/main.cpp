@@ -31,6 +31,7 @@ void create2D(vector<Shape2D *> &shapes2D)
   shapes2D.push_back(new Sector(2.9, 3.0));
 }
 
+// creates 3d shape objects and adds them to the 3d shapes vector
 void create3D(vector<Shape3D *> &shapes3D)
 {
   shapes3D.push_back(new TriangularPyramid);
@@ -46,6 +47,7 @@ void create3D(vector<Shape3D *> &shapes3D)
   shapes3D.push_back(new Sphere(4.5));
 }
 
+// creates both 2d and 3d shape objects and adds them to the shapes vector
 void createMixed(vector<Shape *> &shapes)
 {
   shapes.push_back(new Square);
@@ -82,6 +84,7 @@ void createMixed(vector<Shape *> &shapes)
   shapes.push_back(new Sphere(4.5));
 }
 
+// prints the area of each shape in the 2d shapes vector
 void print2DShapes(vector<Shape2D *> &shapes2D)
 {
   for (int i = 0; i < shapes2D.size(); i++)
@@ -92,6 +95,7 @@ void print2DShapes(vector<Shape2D *> &shapes2D)
   std::printf("\n");
 }
 
+// prints the volume of each shape in the 3d shapes vector
 void print3DShapes(vector<Shape3D *> &shapes3D)
 {
   for (int i = 0; i < shapes3D.size(); i++)
@@ -102,6 +106,7 @@ void print3DShapes(vector<Shape3D *> &shapes3D)
   std::printf("\n");
 }
 
+// scales each shape in the shapes vector by the given scale factor
 void scaleShapes2D(vector<Shape2D *> &shapes)
 {
   std::string buffer;
@@ -120,6 +125,7 @@ void scaleShapes2D(vector<Shape2D *> &shapes)
   }
 }
 
+// scales each shape in the shapes vector by the given scale factor
 void scaleShapes3D(vector<Shape3D *> &shapes)
 {
   std::string buffer;
@@ -138,6 +144,7 @@ void scaleShapes3D(vector<Shape3D *> &shapes)
   }
 }
 
+// sorts the shapes vector by area
 void insertionSort2D(vector<Shape2D *> &shapes)
 {
   int secPos = 0;
@@ -160,6 +167,7 @@ void insertionSort2D(vector<Shape2D *> &shapes)
   delete tempShape;
 }
 
+// sorts the shapes vector by volume
 void insertionSort3D(vector<Shape3D *> &shapes)
 {
   int secPos = 0;
@@ -190,6 +198,7 @@ float roundToTwoDecimals(const float area)
   return static_cast<float>(ret / 100);
 }
 
+// performs a binary search on the shapes vector for the given area
 int binarySearch2D(vector<Shape2D *> &shapes, float area, int low, int high)
 {
   while (low <= high)
@@ -215,6 +224,7 @@ int binarySearch2D(vector<Shape2D *> &shapes, float area, int low, int high)
   return -1;
 }
 
+// performs a binary search on the shapes vector for the given volume
 int binarySearch3D(vector<Shape3D *> &shapes, float volume, int low, int high)
 {
   while (low <= high)
@@ -240,6 +250,7 @@ int binarySearch3D(vector<Shape3D *> &shapes, float volume, int low, int high)
   return -1;
 }
 
+// starts the program
 int main()
 {
   // Create vectors of 2D and 3D shapes
@@ -263,7 +274,6 @@ int main()
   // Main menu
   while (!quit)
   {
-
     printf("Select An Option: \n");
     printf("1 - Print All 2 Dimensional Shapes\n");
     printf("2 - Scale All 2 Dimensional Shapes\n");
@@ -287,11 +297,13 @@ int main()
       print2DShapes(shapes2D);
       break;
     case 2:
+      // scale all 2D shapes
       std::printf("\n");
       scaleShapes2D(shapes2D);
       std::printf("\n");
       break;
     case 3:
+      // sort shapes by area
       insertionSort2D(shapes2D);
       for (int i = 0; i < shapes2D.size(); i++)
       {
@@ -301,9 +313,11 @@ int main()
       std::printf("\n");
       break;
     case 4:
+      // search shapes by area
       std::printf("Enter an Area to search for: ");
       getline(std::cin, buffer);
       searchVal = stod(buffer);
+
       // Ensure list is sorted first
       insertionSort2D(shapes2D);
       result = binarySearch2D(shapes2D, searchVal, 0, shapes2D.size());
@@ -317,7 +331,7 @@ int main()
       printf("\n\n");
       break;
     case 5:
-      // Make sure list is sorted
+      // print smallest and largest 2D shapes
       insertionSort2D(shapes2D);
       printf("Smallest 2D Shape: \n");
       shapes2D[0]->Display();
@@ -326,14 +340,17 @@ int main()
       printf("\n\n");
       break;
     case 6:
+      // print all 3D shapes
       print3DShapes(shapes3D);
       break;
     case 7:
+      // scale all 3D shapes
       std::printf("\n");
       scaleShapes3D(shapes3D);
       std::printf("\n");
       break;
     case 8:
+      // sort shapes by volume
       insertionSort3D(shapes3D);
       for (int i = 0; i < shapes3D.size(); i++)
       {
@@ -343,6 +360,7 @@ int main()
       std::printf("\n");
       break;
     case 9:
+      // search shapes by volume
       printf("Enter a volume to search for: \n");
       getline(std::cin, buffer);
       searchVal = stod(buffer);
@@ -359,11 +377,11 @@ int main()
       printf("\n\n");
       break;
     case 10:
-      // Make sure list is sorted
+      // print smallest and largest 3D shapes
       insertionSort3D(shapes3D);
-      printf("Smallest 2D Shape: \n");
+      printf("Smallest 3D Shape: \n");
       shapes3D[0]->Display();
-      printf("Largest 2D Shape: \n");
+      printf("Largest 3D Shape: \n");
       shapes3D[shapes3D.size() - 1]->Display();
       printf("\n\n");
       break;
@@ -376,6 +394,7 @@ int main()
     }
   }
 
+  // Free memory
   for (int i = 0; i < shapes2D.size(); i++)
   {
     delete shapes2D[i];
