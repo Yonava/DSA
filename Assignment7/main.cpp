@@ -6,6 +6,188 @@
 using std::getline;
 using std::vector;
 
+// function prototypes
+void print2DShapes(vector<Shape2D *> &shapes2D);
+void print3DShapes(vector<Shape3D *> &shapes3D);
+
+void insertionSort2D(vector<Shape2D *> &shapes);
+void insertionSort3D(vector<Shape3D *> &shapes);
+
+void scaleShapes2D(vector<Shape2D *> &shapes);
+void scaleShapes3D(vector<Shape3D *> &shapes);
+void scaleShapesMixed(vector<Shape *> &shapes);
+
+void scaleShapesMixed(vector<Shape *> &shapes) {
+  std::string buffer;
+  double scalar;
+
+  std::printf("Enter scale factor: \n");
+  getline(std::cin, buffer);
+
+  scalar = std::stod(buffer);
+
+  for (int i = 0; i < shapes.size(); i++) {
+    shapes[i]->Scale(scalar);
+    shapes[i]->Display();
+    std::printf("\n");
+  }
+}
+
+// prints the volume of each shape in the 3d shapes vector
+void print3DShapes(vector<Shape3D *> &shapes3D)
+{
+  for (int i = 0; i < shapes3D.size(); i++)
+  {
+    shapes3D[i]->Display();
+    std::printf("\n");
+  }
+  std::printf("\n");
+}
+
+// scales each shape in the shapes vector by the given scale factor
+void scaleShapes2D(vector<Shape2D *> &shapes)
+{
+  std::string buffer;
+  double scalar;
+
+  std::printf("Enter scale factor: \n");
+  getline(std::cin, buffer);
+
+  scalar = std::stod(buffer);
+
+  for (int i = 0; i < shapes.size(); i++)
+  {
+    shapes[i]->Scale(scalar);
+    shapes[i]->Display();
+    std::printf("\n");
+  }
+}
+
+// scales each shape in the shapes vector by the given scale factor
+void scaleShapes3D(vector<Shape3D *> &shapes)
+{
+  std::string buffer;
+  double scalar;
+
+  std::printf("Enter scale factor: \n");
+  getline(std::cin, buffer);
+
+  scalar = std::stod(buffer);
+
+  for (int i = 0; i < shapes.size(); i++)
+  {
+    shapes[i]->Scale(scalar);
+    shapes[i]->Display();
+    std::printf("\n");
+  }
+}
+
+// sorts the shapes vector by area
+void insertionSort2D(vector<Shape2D *> &shapes)
+{
+  int secPos = 0;
+  Shape2D* tempShape = nullptr;
+
+  for (int posInShapes = 1; posInShapes < shapes.size(); posInShapes++)
+  {
+    tempShape = shapes[posInShapes];
+    secPos = posInShapes - 1;
+
+    while (secPos >= 0 && *shapes[secPos] > *tempShape)
+    {
+      shapes[secPos + 1] = shapes[secPos];
+      secPos--;
+    }
+    shapes[secPos + 1] = tempShape;
+  }
+
+  tempShape = nullptr;
+  delete tempShape;
+}
+
+// sorts the shapes vector by volume
+void insertionSort3D(vector<Shape3D *> &shapes)
+{
+  int secPos = 0;
+  Shape3D* tempShape = nullptr;
+
+  for (int posInShapes = 1; posInShapes < shapes.size(); posInShapes++)
+  {
+    tempShape = shapes[posInShapes];
+    secPos = posInShapes - 1;
+
+    while (secPos >= 0 && *shapes[secPos] > *tempShape)
+    {
+      shapes[secPos + 1] = shapes[secPos];
+      secPos--;
+    }
+    shapes[secPos + 1] = tempShape;
+  }
+
+  tempShape = nullptr;
+  delete tempShape;
+}
+
+// https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/
+// Borrowed from here since I didn't know how to do the math!
+float roundToTwoDecimals(const float area)
+{
+  float ret = static_cast<int>((area * 100) + 0.5);
+  return static_cast<float>(ret / 100);
+}
+
+// performs a binary search on the shapes vector for the given area
+int binarySearch2D(vector<Shape2D *> &shapes, float area, int low, int high)
+{
+  while (low <= high)
+  {
+    int mid = low + ((high - low) / 2);
+
+    float midShapeArea = roundToTwoDecimals(shapes[mid]->Area());
+    float searchArea = roundToTwoDecimals(area);
+
+    if (midShapeArea == searchArea)
+    {
+      return mid;
+    }
+    if (midShapeArea < searchArea)
+    {
+      low = mid + 1;
+    }
+    else
+    {
+      high = mid - 1;
+    }
+  }
+  return -1;
+}
+
+// performs a binary search on the shapes vector for the given volume
+int binarySearch3D(vector<Shape3D *> &shapes, float volume, int low, int high)
+{
+  while (low <= high)
+  {
+    int mid = low + ((high - low) / 2);
+
+    float midShapeArea = roundToTwoDecimals(shapes[mid]->Volume());
+    float searchArea = roundToTwoDecimals(volume);
+
+    if (midShapeArea == searchArea)
+    {
+      return mid;
+    }
+    if (midShapeArea < searchArea)
+    {
+      low = mid + 1;
+    }
+    else
+    {
+      high = mid - 1;
+    }
+  }
+  return -1;
+}
+
 // creates 2d shape objects and adds them to the 2d shapes vector
 void create2D(vector<Shape2D *> &shapes2D)
 {
@@ -84,172 +266,6 @@ void createMixed(vector<Shape *> &shapes)
   shapes.push_back(new Sphere(4.5));
 }
 
-// prints the area of each shape in the 2d shapes vector
-void print2DShapes(vector<Shape2D *> &shapes2D)
-{
-  for (int i = 0; i < shapes2D.size(); i++)
-  {
-    shapes2D[i]->Display();
-    std::printf("\n");
-  }
-  std::printf("\n");
-}
-
-// prints the volume of each shape in the 3d shapes vector
-void print3DShapes(vector<Shape3D *> &shapes3D)
-{
-  for (int i = 0; i < shapes3D.size(); i++)
-  {
-    shapes3D[i]->Display();
-    std::printf("\n");
-  }
-  std::printf("\n");
-}
-
-// scales each shape in the shapes vector by the given scale factor
-void scaleShapes2D(vector<Shape2D *> &shapes)
-{
-  std::string buffer;
-  double scalar;
-
-  std::printf("Enter scale factor: \n");
-  getline(std::cin, buffer);
-
-  scalar = std::stod(buffer);
-
-  for (int i = 0; i < shapes.size(); i++)
-  {
-    shapes[i]->Scale(scalar);
-    shapes[i]->Display();
-    std::printf("\n");
-  }
-}
-
-// scales each shape in the shapes vector by the given scale factor
-void scaleShapes3D(vector<Shape3D *> &shapes)
-{
-  std::string buffer;
-  double scalar;
-
-  std::printf("Enter scale factor: \n");
-  getline(std::cin, buffer);
-
-  scalar = std::stod(buffer);
-
-  for (int i = 0; i < shapes.size(); i++)
-  {
-    shapes[i]->Scale(scalar);
-    shapes[i]->Display();
-    std::printf("\n");
-  }
-}
-
-// sorts the shapes vector by area
-void insertionSort2D(vector<Shape2D *> &shapes)
-{
-  int secPos = 0;
-  Shape2D* tempShape = nullptr;
-
-  for (int posInShapes = 1; posInShapes < shapes.size(); posInShapes++)
-  {
-    tempShape = shapes[posInShapes];
-    secPos = posInShapes - 1;
-
-    while (secPos >= 0 && shapes[secPos]->Area() > tempShape->Area())
-    {
-      shapes[secPos + 1] = shapes[secPos];
-      secPos--;
-    }
-    shapes[secPos + 1] = tempShape;
-  }
-
-  tempShape = nullptr;
-  delete tempShape;
-}
-
-// sorts the shapes vector by volume
-void insertionSort3D(vector<Shape3D *> &shapes)
-{
-  int secPos = 0;
-  Shape3D* tempShape = nullptr;
-
-  for (int posInShapes = 1; posInShapes < shapes.size(); posInShapes++)
-  {
-    tempShape = shapes[posInShapes];
-    secPos = posInShapes - 1;
-
-    while (secPos >= 0 && shapes[secPos]->Volume() > tempShape->Volume())
-    {
-      shapes[secPos + 1] = shapes[secPos];
-      secPos--;
-    }
-    shapes[secPos + 1] = tempShape;
-  }
-
-  tempShape = nullptr;
-  delete tempShape;
-}
-
-// https://www.geeksforgeeks.org/rounding-floating-point-number-two-decimal-places-c-c/
-// Borrowed from here since I didn't know how to do the math!
-float roundToTwoDecimals(const float area)
-{
-  float ret = static_cast<int>((area * 100) + 0.5);
-  return static_cast<float>(ret / 100);
-}
-
-// performs a binary search on the shapes vector for the given area
-int binarySearch2D(vector<Shape2D *> &shapes, float area, int low, int high)
-{
-  while (low <= high)
-  {
-    int mid = low + ((high - low) / 2);
-
-    float midShapeArea = roundToTwoDecimals(shapes[mid]->Area());
-    float searchArea = roundToTwoDecimals(area);
-
-    if (midShapeArea == searchArea)
-    {
-      return mid;
-    }
-    if (midShapeArea < searchArea)
-    {
-      low = mid + 1;
-    }
-    else
-    {
-      high = mid - 1;
-    }
-  }
-  return -1;
-}
-
-// performs a binary search on the shapes vector for the given volume
-int binarySearch3D(vector<Shape3D *> &shapes, float volume, int low, int high)
-{
-  while (low <= high)
-  {
-    int mid = low + ((high - low) / 2);
-
-    float midShapeArea = roundToTwoDecimals(shapes[mid]->Volume());
-    float searchArea = roundToTwoDecimals(volume);
-
-    if (midShapeArea == searchArea)
-    {
-      return mid;
-    }
-    if (midShapeArea < searchArea)
-    {
-      low = mid + 1;
-    }
-    else
-    {
-      high = mid - 1;
-    }
-  }
-  return -1;
-}
-
 // starts the program
 int main()
 {
@@ -285,8 +301,13 @@ int main()
     printf("7 - Shrink/Enlarge All 3 Dimensional Shapes\n");
     printf("8 - Sort 3 Dimensional Shapes By Volume\n");
     printf("9 - Find Index of 3 Dimensional Shape via Volume\n");
-    printf("10 - Print The Smallest and The Largest 3D Shape\n");
-    printf("11 - Leave\n");
+    printf("10 - Print The Smallest and The Largest 3D Shape\n");    
+    printf("\n\n");
+    printf("11 - Scale Mixed Shapes\n");
+    printf("12 - Sort Mixed Shapes By Area\n");
+    printf("14 - Print The Smallest and The Largest Mixed Shape\n");
+    printf("\n\n");
+    printf("15 - Leave\n");
 
     getline(std::cin, buffer);
     select = std::stoi(buffer);
@@ -386,6 +407,14 @@ int main()
       printf("\n\n");
       break;
     case 11:
+      // scale all mixed shapes
+      std::printf("\n");
+      scaleShapesMixed(shapes);
+      std::printf("\n");
+      break;
+    case 15:
+      // leave
+      printf("Goodbye!\n");
       quit = true;
       break;
     default:

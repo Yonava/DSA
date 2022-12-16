@@ -5,8 +5,10 @@
 using std::cout;
 using std::string;
 
+// Global Constants
 const float PI = 3.14159f;
 
+// Base Class
 class Shape
 {
 public:
@@ -14,6 +16,7 @@ public:
   virtual void Display() const = 0;
 };
 
+// Virtual Base Classes
 class Shape2D : virtual public Shape
 {
 public:
@@ -26,6 +29,7 @@ public:
   bool operator==(const Shape2D &rhs) const;
 };
 
+// Virtual Base Classes
 class Shape3D : virtual public Shape
 {
 public:
@@ -39,7 +43,6 @@ public:
 };
 
 // 2D Shapes Classes
-
 class Square : virtual public Shape2D
 {
 private:
@@ -52,6 +55,7 @@ public:
   string GetName2D() const;
 };
 
+// 2D Shapes Classes
 class Rectangle : virtual public Shape2D
 {
 private:
@@ -59,17 +63,20 @@ private:
 
 public:
   Rectangle(float width = 0, float height = 0) : width(width), height(height) {}
+  // outputs the area of the rectangle
   float Area() const;
   void Scale(float scaleFactor);
   string GetName2D() const;
 };
 
+// 2D Shapes Classes
 class Triangle : virtual public Shape2D
 {
 private:
   float base, height;
 
 public:
+  // use 0 as the default values for base and height
   Triangle(float base = 0, float height = 0) : base(base), height(height) {}
   float Area() const;
   void Scale(float scaleFactor);
@@ -160,6 +167,7 @@ private:
   float height;
 
 public:
+  // borrows the radius from Circle
   Cylinder(float height = 0, float radius = 0) : height(height), Circle(radius) {}
   float Volume() const;
   void Scale(float scaleFactor);
