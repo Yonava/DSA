@@ -18,6 +18,15 @@ void mergeSort(T arr[], int left, int right);
 template <typename T>
 void merge(T arr[], int left, int mid, int right);
 
+template <typename T>
+void swap(T &a, T &b);
+
+template <typename T>
+void quickSort(T arr[], int left, int right);
+
+template <typename T>
+int partition(T arr[], int left, int right);
+
 void generateData(int *data, int n, int range = 100)
 {
   std::random_device rd;
@@ -38,7 +47,7 @@ int main()
 
   generateData(data, n);
 
-  std::cout << "Enter the sorting algorithm to use (bubble, insertion, or selection): ";
+  std::cout << "name an algorithm (bubble, insertion, selection, merge, or quick): ";
   std::string algorithm;
   std::cin >> algorithm;
 
@@ -55,6 +64,14 @@ int main()
   else if (algorithm == "selection")
   {
     selectionSort(data, n);
+  }
+  else if (algorithm == "merge")
+  {
+    mergeSort(data, 0, n - 1);
+  }
+  else if (algorithm == "quick")
+  {
+    quickSort(data, 0, n - 1);
   }
   else
   {
@@ -176,4 +193,32 @@ void mergeSort(T arr[], int left, int right)
     mergeSort(arr, mid + 1, right);
     merge(arr, left, mid, right);
   }
+}
+
+template <typename T>
+void quickSort(T arr[], int left, int right)
+{
+  if (left < right)
+  {
+    int pivot = partition(arr, left, right);
+    quickSort(arr, left, pivot - 1);
+    quickSort(arr, pivot + 1, right);
+  }
+}
+
+template <typename T>
+int partition(T arr[], int left, int right)
+{
+  T pivot = arr[right];
+  int i = left - 1;
+  for (int j = left; j < right; j++)
+  {
+    if (arr[j] < pivot)
+    {
+      i++;
+      swap(arr[i], arr[j]);
+    }
+  }
+  swap(arr[i + 1], arr[right]);
+  return i + 1;
 }
