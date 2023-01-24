@@ -26,7 +26,6 @@ function main() {
       let index = parseInt(prompt('enter index'));
       linkedList.insertAtIndex(value, index);
   }
-
 }
 
 class Node {
