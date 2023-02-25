@@ -22,8 +22,6 @@ class Stack
     void print();
 };
 
-
-
 template <class T>
 Stack<T>::Stack()
 {

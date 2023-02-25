@@ -37,7 +37,7 @@ string infixToPostfix(string infix)
 
   for (int i = 0; i < infix.length(); i++)
   {
-    if (infix[i] == ' ' || infix[i] == ',')
+    if (infix[i] == ' ' || infix[i] == '.')
       continue;
     c = infix[i];
     if (isOperand(c))
@@ -155,8 +155,6 @@ bool isOperand(char c)
 
 int precedence(char c)
 {
-  if (c == '^')
-    return 3;
   if (c == '*' || c == '/' || c == '%')
     return 2;
   if (c == '+' || c == '-')
