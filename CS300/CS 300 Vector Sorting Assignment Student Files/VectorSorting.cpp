@@ -331,6 +331,7 @@ int main(int argc, char *argv[])
       cout << bids.size() << " bids sorted" << endl;
 
       ticks = clock() - ticks;
+      cout << ticks << " clock ticks" << endl;
       cout << "time: " << ticks * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
 
       break;
@@ -346,6 +347,7 @@ int main(int argc, char *argv[])
       cout << bids.size() << " bids sorted" << endl;
 
       ticks = clock() - ticks;
+      cout << ticks << " clock ticks" << endl;
       cout << "time: " << ticks * 1.0 / CLOCKS_PER_SEC << " seconds" << endl;
 
       break;
