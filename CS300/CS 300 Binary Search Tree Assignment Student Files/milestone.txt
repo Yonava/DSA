@@ -1,0 +1,101 @@
+// Define a Course struct to represent each node in the BST
+struct Course {
+  string courseNumber;
+  string title;
+  vector<Course*> prerequisites;
+};
+
+// Define a BST to store course objects
+struct Node {
+  Course* course;
+  Node* left;
+  Node* right;
+};
+
+// Initialize the BST
+Node* root = nullptr;
+
+// Open the file
+file = open("course_info.txt");
+
+// Check if the file was opened successfully
+if (file == null) {
+  print("Error opening file");
+  exit;
+}
+
+// Loop through each line in the file
+while (line = file.read()) {
+
+  // Split the line into tokens
+  tokens = line.split(",");
+
+  // Check for file format errors
+  if (tokens.length < 2) {
+    print("Error: Line must have at least two parameters");
+    continue;
+  }
+}
+
+// Create a new Course object
+Course* course = new Course();
+
+// Store the data from the line in the Course object
+course->courseNumber = tokens[0];
+course->title = tokens[1];
+
+// Store any prerequisites for the course
+if (tokens.length > 2) {
+  for (i = 2; i < tokens.length; i++) {
+    Node* prerequisiteNode = searchBST(tokens[i], root);
+    if (prerequisiteNode == null) {
+      print("Error: Prerequisite " + tokens[i] + " not found");
+      continue;
+    }
+    course->prerequisites.push_back(prerequisiteNode->course);
+  }
+}
+
+// Add the Course object to the BST
+root = insertBST(course, root);
+
+// Close the file
+file.close();
+
+// Function to search for a course by its course number
+Node* searchBST(string courseNumber, Node* node) {
+  if (node == null) {
+    return null;
+  } else if (courseNumber == node->course->courseNumber) {
+    return node;
+  } else if (courseNumber < node->course->courseNumber) {
+    return searchBST(courseNumber, node->left);
+  } else {
+    return searchBST(courseNumber, node->right);
+  }
+}
+
+// Function to insert a new course into the BST
+Node* insertBST(Course* course, Node* node) {
+  if (node == null) {
+    node = new Node();
+    node->course = course;
+    node->left = null;
+    node->right = null;
+  } else if (course->courseNumber < node->course->courseNumber) {
+    node->left = insertBST(course, node->left);
+  } else {
+    node->right = insertBST(course, node->right);
+  }
+  return node;
+}
+
+// Function to search for a course by its course number
+Course* searchCourses(string courseNumber) {
+  Node* node = searchBST(courseNumber, root);
+  if (node == null) {
+    return null;
+  } else {
+    return node->course;
+  }
+}
