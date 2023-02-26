@@ -231,8 +231,13 @@ void HashTable::Remove(string bidId)
 {
   // set key equal to hash atoi bidID cstring
   unsigned int key = hash(atoi(bidId.c_str()));
-  // erase node begin and key
-  nodes.erase(nodes.begin() + key);
+  
+  // if node key is equal to key
+  if (nodes[key].key == key)
+  {
+    // set node key to UINT_MAX
+    nodes[key].key = UINT_MAX;
+  }
 }
 
 /**
