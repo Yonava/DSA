@@ -183,6 +183,13 @@ void LinkedList::PrintList()
  */
 void LinkedList::Remove(string bidId)
 {
+  // special case if list is empty
+  if (head == nullptr)
+  {
+    cout << "Bid ID " << bidId << " not found" << endl;
+    return;
+  }
+
   // special case if matching node is the head
   // make head point to the next node in the list
   // decrease size count
@@ -205,7 +212,8 @@ void LinkedList::Remove(string bidId)
   // decrease size count
   // return
   Node *current = head;
-  while (current != nullptr)
+
+  while (current->next != nullptr)
   {
     if (current->next->bid.bidId == bidId)
     {
@@ -218,6 +226,9 @@ void LinkedList::Remove(string bidId)
     // current node is equal to next node
     current = current->next;
   }
+
+  // if we get here, no match found
+  cout << "Bid ID " << bidId << " not found" << endl;
 }
 
 /**
