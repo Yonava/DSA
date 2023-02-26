@@ -1,0 +1,74 @@
+// basic Binary Search Tree implementation with insert, search, remove, and print methods
+class BinarySearchTree:
+    Node:
+        // value would be bid in our case
+        value
+        left_child
+        right_child
+
+    // root stored as a member variable
+    root = None
+
+    function insert(value):
+        if root is None:
+            root = Node(value)
+        else:
+            insert_helper(root, value)
+
+    function insert_helper(node, value):
+        if value < node.value:
+            if node.left_child is None:
+                node.left_child = Node(value)
+            else:
+                insert_helper(node.left_child, value)
+        else:
+            if node.right_child is None:
+                node.right_child = Node(value)
+            else:
+                insert_helper(node.right_child, value)
+
+    function search(value):
+        return search_helper(root, value)
+
+    function search_helper(node, value):
+        if node is None:
+            return False
+        elif node.value == value:
+            return True
+        elif value < node.value:
+            return search_helper(node.left_child, value)
+        else:
+            return search_helper(node.right_child, value)
+
+    function remove(value):
+        root = remove_helper(root, value)
+
+    function remove_helper(node, value):
+        if node is None:
+            return None
+        elif value < node.value:
+            node.left_child = remove_helper(node.left_child, value)
+        elif value > node.value:
+            node.right_child = remove_helper(node.right_child, value)
+        else:
+            if node.left_child is None and node.right_child is None:
+                return None
+            elif node.left_child is None:
+                return node.right_child
+            elif node.right_child is None:
+                return node.left_child
+            else:
+                temp_node = find_min_node(node.right_child)
+                node.value = temp_node.value
+                node.right_child = remove_helper(node.right_child, temp_node.value)
+        return node
+
+    function print_tree():
+        print_tree_helper(root)
+
+    function print_tree_helper(node):
+        if node is not None:
+            print_tree_helper(node.left_child)
+            print(node.value)
+            print_tree_helper(node.right_child)
+      
