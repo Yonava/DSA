@@ -238,18 +238,6 @@ void LinkedList::Remove(string bidId)
  */
 Bid LinkedList::Search(string bidId)
 {
-  // special case if matching node is the head
-  // make head point to the next node in the list
-  // decrease size count
-  // return
-
-  /*
-    Yona: I don't think removing the node is part of the search function.
-    for modularity, I would keep any removing to the Remove function. 
-    Therefore, I will skip this part for now. Will email you to confirm.
-  */
-
-
   // start at the head of the list
 
   // keep searching until end reached with while loop (next != nullptr
