@@ -1,81 +1,37 @@
 #include "HashTable.h"
 
-const unsigned int DEFAULT_SIZE = 179;
-
-struct Course {
-  string courseId;
-  string title;
-  vector<Course> prereqs;
-};
-
-
-class HashTable
-{
-
-private:
-  struct Node
-  {
-    Course course;
-    unsigned int key;
-    Node *next;
-
-    Node()
-    {
-      key = UINT_MAX;
-      next = nullptr;
+unsigned int hashString(const std::string& str, unsigned int seed = 0) {
+    unsigned int hash = seed;
+    for (char c : str) {
+        // 31 is commonly used as a magic number for hashing
+        hash = (hash * 31) + c;
     }
-
-    Node(Course aCourse) : Node()
-    {
-      course = aCourse;
-    }
-
-    Node(Course aCourse, unsigned int aKey) : Node(aCourse)
-    {
-      key = aKey;
-    }
-  };
-
-  vector<Node> nodes;
-
-  unsigned int tableSize = DEFAULT_SIZE;
-
-  unsigned int hash(int key);
-
-public:
-  HashTable();
-  virtual ~HashTable();
-  void Insert(Course course);
-  void PrintAll();
-  void Remove(string courseId);
-  Course Search(string courseId);
-};
+    return hash;
+}
 
 HashTable::HashTable()
 {
   nodes.resize(tableSize);
 }
 
-/**
- * Destructor
- */
 HashTable::~HashTable()
 {
   // erase nodes beginning
   nodes.erase(nodes.begin());
 }
 
-unsigned int HashTable::hash(int key)
+unsigned int HashTable::hash(string key)
 {
-  // prime number used for optimal spread
-  key *= 2654435761;
-  return key % tableSize;
+  cout << "Table Size: " << tableSize << endl;
+  return hashString(key) % tableSize;
 }
 
 void HashTable::Insert(Course course)
 {
   // create the key for the given bid
-  unsigned int key = hash(atoi(course.courseId.c_str()));
+  unsigned int key = hash(course.courseId);
+
+  cout << "Table Size: " << tableSize << endl;
 
   // retrieve node using key
   Node *node = &nodes[key];
@@ -114,16 +70,15 @@ void HashTable::Insert(Course course)
 
 void displayBid(Course course)
 {
-  cout << course.courseId << ": " << course.title << " | ";
-  for (int i = 0; i < course.prereqs.size(); i++)
-  {
-    cout << course.prereqs[i].courseId << " ";
-  }
-  return;
+  cout << course.courseId << ", " << course.title << endl;
 }
 
 void HashTable::PrintAll()
 {
+  // for (int i = 0; i < nodes.size(); i++)
+  // {
+  //   cout << "Key: " << nodes[i].key << endl;
+  // }
   for (int i = 0; i < nodes.size(); i++)
   {
     if (nodes[i].key != UINT_MAX)
@@ -137,15 +92,12 @@ void HashTable::PrintAll()
   }
 }
 
-void HashTable::Remove(string bidId)
+void HashTable::Remove(string courseId)
 {
-  // set key equal to hash atoi bidID cstring
-  unsigned int key = hash(atoi(bidId.c_str()));
+  unsigned int key = hash(courseId);
   
-  // if node key is equal to key
   if (nodes[key].key == key)
   {
-    // set node key to UINT_MAX
     nodes[key].key = UINT_MAX;
   }
 }
@@ -154,28 +106,17 @@ Course HashTable::Search(string courseId)
 {
   Course course;
 
-  // create the key for the given bid
-  // if entry found for the key
-  // return node bid
-
-  unsigned int key = hash(atoi(courseId.c_str()));
+  unsigned int key = hash(courseId);
 
   if (nodes[key].key == key)
   {
     return nodes[key].course;
   }
 
-  // if no entry found for the key
-  // return bid
-
   if (nodes[key].key == UINT_MAX)
   {
     return course;
   }
-
-  // while node not equal to nullptr
-  // if the current node matches, return it
-  // node is equal to next node
 
   Node *node = &nodes[key];
   while (node != nullptr)
@@ -188,10 +129,4 @@ Course HashTable::Search(string courseId)
   }
 
   return course;
-}
-
-
-void loadCourses(string path, HashTable *hashTable)
-{
-
 }
