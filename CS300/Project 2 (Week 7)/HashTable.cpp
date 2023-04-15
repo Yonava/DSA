@@ -1,12 +1,14 @@
 #include "HashTable.h"
 
-unsigned int hashString(const std::string& str, unsigned int seed = 0) {
-    unsigned int hash = seed;
-    for (char c : str) {
-        // 31 is commonly used as a magic number for hashing
-        hash = (hash * 31) + c;
-    }
-    return hash;
+unsigned int hashString(const std::string &str, unsigned int seed = 0)
+{
+  unsigned int hash = seed;
+  for (char c : str)
+  {
+    // 31 is commonly used as a magic number for hashing
+    hash = (hash * 31) + c;
+  }
+  return hash;
 }
 
 HashTable::HashTable()
@@ -22,7 +24,6 @@ HashTable::~HashTable()
 
 unsigned int HashTable::hash(string key)
 {
-  cout << "Table Size: " << tableSize << endl;
   return hashString(key) % tableSize;
 }
 
@@ -30,8 +31,6 @@ void HashTable::Insert(Course course)
 {
   // create the key for the given bid
   unsigned int key = hash(course.courseId);
-
-  cout << "Table Size: " << tableSize << endl;
 
   // retrieve node using key
   Node *node = &nodes[key];
@@ -75,10 +74,7 @@ void displayBid(Course course)
 
 void HashTable::PrintAll()
 {
-  // for (int i = 0; i < nodes.size(); i++)
-  // {
-  //   cout << "Key: " << nodes[i].key << endl;
-  // }
+  Sort();
   for (int i = 0; i < nodes.size(); i++)
   {
     if (nodes[i].key != UINT_MAX)
@@ -92,10 +88,17 @@ void HashTable::PrintAll()
   }
 }
 
+void HashTable::Sort()
+{
+  // sort nodes by course id
+  sort(nodes.begin(), nodes.end(), [](Node a, Node b)
+       { return a.course.courseId < b.course.courseId; });
+}
+
 void HashTable::Remove(string courseId)
 {
   unsigned int key = hash(courseId);
-  
+
   if (nodes[key].key == key)
   {
     nodes[key].key = UINT_MAX;

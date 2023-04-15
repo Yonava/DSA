@@ -56,4 +56,5 @@ public:
   void PrintAll();
   void Remove(string courseId);
   Course Search(string courseId);
+  void Sort();
 };

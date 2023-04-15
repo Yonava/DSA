@@ -15,19 +15,27 @@ Course parseCourse(string line)
   while (line.length() > 0)
   {
     pos = line.find(",");
+    string prereq;
     if (pos == -1)
     {
-      course.prereqs.push_back(line);
-      break;
+      prereq = line;
+      line = "";
     }
-    course.prereqs.push_back(line.substr(0, pos));
-    line = line.substr(pos + 1);
+    else
+    {
+      prereq = line.substr(0, pos);
+      line = line.substr(pos + 1);
+    }
+    if (prereq != course.title)
+    {
+      course.prereqs.push_back(prereq);
+    }
   }
 
   return course;
 }
 
-void loadHashTable(HashTable* courseTable)
+void loadHashTable(HashTable *courseTable)
 {
   string filename;
   cout << "Please enter the file name: ";
@@ -51,11 +59,13 @@ void loadHashTable(HashTable* courseTable)
   file.close();
 }
 
-int main() {
+int main()
+{
 
-  HashTable* courseTable = new HashTable();
+  HashTable *courseTable = new HashTable();
 
-  while (true) {
+  while (true)
+  {
     cout << "1. Load Data Structure" << endl;
     cout << "2. Print Course List" << endl;
     cout << "3. Print Course" << endl;
@@ -69,42 +79,50 @@ int main() {
 
     cin >> choice;
 
-    switch (choice) {
-      case 1:
-        loadHashTable(courseTable);
-        cout << "Data Structure (Hash Table) Loaded!" << endl;
-        break;
-      case 2:
-        cout << "Here is a sample schedule:" << endl;
-        courseTable->PrintAll();
-        break;
-      case 3:
-        cout << "What course do you want to know about? " << endl;
-        cin >> courseId;
-        course = courseTable->Search(courseId);
-        if (course.courseId == "")
+    switch (choice)
+    {
+    case 1:
+      loadHashTable(courseTable);
+      cout << "Data Structure (Hash Table) Loaded!" << endl;
+      break;
+    case 2:
+      cout << "Here is a sample schedule:" << endl;
+      courseTable->PrintAll();
+      break;
+    case 3:
+      cout << "What course do you want to know about? ";
+      cin >> courseId;
+      course = courseTable->Search(courseId);
+      if (course.courseId == "")
+      {
+        cout << "Course not found" << endl;
+      }
+      else
+      {
+        cout << "Here is what we found - " << endl;
+        cout << "Course ID: " << course.courseId << endl;
+        cout << "Course Title: " << course.title << endl;
+        cout << "Prerequisites: ";
+
+        if (course.prereqs.size() == 0)
         {
-          cout << "Course not found" << endl;
+          cout << "None";
         }
-        else
+
+        for (int i = 0; i < course.prereqs.size(); i++)
         {
-          cout << "Here is what we found - " << endl;
-          cout << "Course ID: " << course.courseId << endl;
-          cout << "Course Title: " << course.title << endl;
-          cout << "Prerequisites: ";
-          for (int i = 0; i < course.prereqs.size(); i++)
-          {
-            cout << course.prereqs[i] << " ";
-          }
-          cout << endl;
+          cout << course.prereqs[i] << " ";
         }
-        break;
-      case 4:
-        cout << "Exit" << endl;
-        return 0;
-      default:
-        cout << "Invalid choice" << endl;
-        break;
+        
+        cout << endl;
+      }
+      break;
+    case 4:
+      cout << "Exit" << endl;
+      return 0;
+    default:
+      cout << "Invalid choice" << endl;
+      break;
     }
   }
 
